@@ -1,0 +1,27 @@
+
+services:
+  mongo:
+    image: mongo:6
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongo:/data/db
+  server:
+    build: ./server
+    restart: unless-stopped
+    env_file:
+      - ./server/.env.docker
+    depends_on:
+      - mongo
+    ports:
+      - "4001:4001"
+  client:
+    build: ./client
+    restart: unless-stopped
+    environment:
+      - VITE_API_BASE=http://localhost:4001/api
+    depends_on:
+      - server
+    ports:
+      - "5173:5173"

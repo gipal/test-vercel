@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: vue3-fullstack-api
+    env: node
+    buildCommand: npm install
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.17.0
