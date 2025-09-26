@@ -8,5 +8,5 @@ export default defineConfig({
     port: 5173,
     host: true
   },
-  base: './'
+  base: './' // 确保静态资源路径正确
 })
