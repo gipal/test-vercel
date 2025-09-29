@@ -5,5 +5,5 @@ COPY package.json ./
 RUN npm install
 COPY . .
 EXPOSE 5173
-ENV VITE_API_BASE=http://localhost:4001/api
+ENV VITE_API_BASE=https://test-vercel-elch.onrender.com/api
 CMD ["npm","run","dev"]
