@@ -1,6 +1,7 @@
 import axios from 'axios'
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE || 'http://localhost:4001/api',
+  baseURL: 'https://test-vercel-elch.onrender.com/api',
+  // baseURL: import.meta.env.VITE_API_BASE || 'http://localhost:4001/api',
   timeout: 20000
 })
 api.interceptors.request.use(cfg => {

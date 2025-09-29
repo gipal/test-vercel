@@ -5,7 +5,7 @@
 -->
 <template>
   <el-card style="max-width: 420px; margin: 40px auto">
-    <h2>注册</h2>
+    <h2>注册11</h2>
     <el-form :model="form" :rules="rules" ref="formRef" label-position="top">
       <el-form-item label="昵称" prop="name"><el-input v-model="form.name" /></el-form-item>
       <el-form-item label="Email" prop="email"><el-input v-model="form.email" /></el-form-item>
