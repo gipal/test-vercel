@@ -9,4 +9,5 @@ api.interceptors.request.use(cfg => {
   if (t) cfg.headers.Authorization = `Bearer ${t}`;
   return cfg
 })
+
 export default api
