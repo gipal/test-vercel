@@ -64,3 +64,14 @@ import.meta.env.VITE_API_BASE
 工作原理：
 Vite 在构建时会替换 import.meta.env.XXX 为实际值
 只有以 VITE_ 开头的变量才能在客户端代码中访问
+
+
+如果需要用到GitHub Actions 部署vercel前端项目需要
+添加以下 secrets:
+VERCEL_TOKEN：OUmgXPGOpl9qqxIng5gWLVpq
+VERCEL_ORG_ID：team_EfFgqI9vkeNXcv9oJW0qyDIP
+VERCEL_PROJECT_ID：prj_gsUHoqrONjxtSAJRbcenedyS3sUb
+RENDER_SERVICE_ID：d3agbq2dbo4c738qe4og
+RENDER_API_KEY：rnd_HjAu9ibaRC2Nf5kS9Wv2rUUrXSrx
+
+
