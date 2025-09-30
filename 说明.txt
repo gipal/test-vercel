@@ -1,0 +1,66 @@
+vercel.json 主要用于配置部署和路由规则，而不是环境变量
+
+
+为什么不直接使用 Render 的默认域名
+你可以直接使用 Render 的默认域名，但这样做的缺点是：
+URL 不够专业（用户看到的是 render.com 的域名）
+如果需要更换后端服务提供商，需要更新前端代码
+使用自定义域名更利于品牌建设和 SEO
+
+
+本地预览:
+npm run build 后在当前目录运行npm run preview
+
+
+用户能够访问到后端接口 API完整流程：
+前端请求发起：
+// 前端代码
+axios.post('/auth/login', {username, password})
+环境变量解析
+// axios.js
+baseURL: import.meta.env.VITE_API_BASE || 'http://localhost:4001/api'
+DNS 解析：
+api.yude.bady → CNAME → test-vercel-elch.onrender.com
+请求路由：
+浏览器 → DNS → Vercel DNS → Render 服务器 → 后端应用
+后端处理：
+// 后端路由处理
+app.use('/api/auth', authRoutes)
+
+
+Dockerfile 和 docker-compose.yml 的作用：
+本地开发环境一键搭建：
+docker-compose up -d --build
+统一开发环境：确保所有开发者使用相同的环境
+简化依赖管理：无需手动安装 Node.js、MongoDB 等
+
+
+为什么 Render 中还需要配置自定义域名？
+这是为了域名验证和 SSL 证书：
+Vercel 的作用：
+处理 DNS 解析，将 api.yude.baby 指向 test-vercel-elch.onrender.com
+Render 的作用：
+验证你确实拥有 api.yude.baby 域名
+为你的域名生成和管理 SSL 证书
+确保安全的 HTTPS 连接
+流程：
+用户请求 → api.yude.baby 
+  → Vercel DNS 解析 
+  → test-vercel-elch.onrender.com 
+  → Render 验证域名所有权并提供 SSL 证书
+  → 返回安全的 API 响应
+
+
+
+import.meta.env 不是 JavaScript 标准语法，而是：
+Vite 特性：
+import.meta 是 ES 模块的元属性（ECMAScript 标准）
+import.meta.env 是 Vite 提供的环境变量访问方式
+与传统方式的区别：
+// Vue 2 (webpack) 中使用
+process.env.VUE_APP_API_BASE
+// Vue 3 (Vite) 中使用
+import.meta.env.VITE_API_BASE
+工作原理：
+Vite 在构建时会替换 import.meta.env.XXX 为实际值
+只有以 VITE_ 开头的变量才能在客户端代码中访问

@@ -1,9 +1,14 @@
+<!--
+ * @Descripttion: your project
+ * @Author: zhengzetao
+ * @Date: 2025-08-18 11:26:22
+-->
 
 <template>
   <el-container style="height:100vh">
     <el-header>
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong>Vue3 + Element Plus + JWT</strong>
+        <!-- <strong>Vue3 + Element Plus + JWT</strong> -->
         <div>
           <el-button v-if="!isAuthed" type="primary" @click="$router.push('/login')">登录</el-button>
           <el-button v-if="!isAuthed" @click="$router.push('/register')">注册</el-button>

@@ -182,3 +182,128 @@ Integrate AI APIs (DeepSeek / OpenAI)
 
 Deploy frontend on Vercel + backend on Render/Heroku
 
+# Vue3 全栈一键部署项目
+
+## 项目介绍
+
+这是一个开箱即用的全栈示例架构，集成 Vue3 前端、Node.js + Express 后端与 MongoDB 数据库，并提供 Docker 一键部署配置。
+
+## 技术栈
+
+- 前端: Vue 3 + Vite + Pinia + Vue Router + Element Plus
+- 后端: Node.js + Express + MongoDB (Mongoose)
+- 部署: Docker Compose 一键部署
+- 认证: JWT + bcrypt
+
+## 本地开发
+
+### 方法一：Docker 一键运行（推荐）
+```bash
+docker compose up -d --build
+```
+
+### 方法二：本地分别运行
+```bash
+# 启动后端
+cd server
+cp .env.example .env
+npm install
+npm run dev
+
+# 启动前端（在另一个终端）
+cd client
+cp .env.example .env
+npm install
+npm run dev
+```
+
+## 自动化部署
+
+本项目支持通过 GitHub Actions 自动部署到 Vercel（前端）和 Render（后端）。
+
+### 配置步骤
+
+1. 在 GitHub 仓库中设置以下 secrets：
+   - `VERCEL_TOKEN`: Vercel 访问令牌
+   - `VERCEL_ORG_ID`: Vercel 组织 ID
+   - `VERCEL_PROJECT_ID`: Vercel 项目 ID
+   - `RENDER_SERVICE_ID`: Render 服务 ID
+   - `RENDER_API_KEY`: Render API 密钥
+
+2. 将代码推送到 main/master 分支，GitHub Actions 会自动运行测试并部署到对应平台。
+
+### 手动部署
+
+#### 前端部署到 Vercel
+1. 登录 Vercel 控制台
+2. 创建新项目并连接到 GitHub 仓库
+3. 设置根目录为 `client`
+4. 部署项目
+
+#### 后端部署到 Render
+1. 登录 Render 控制台
+2. 创建 Web Service 并连接到 GitHub 仓库
+3. 设置根目录为 `server`
+4. 添加环境变量：
+   - `MONGO_URI`: MongoDB 连接字符串
+   - `JWT_SECRET`: JWT 密钥
+   - `JWT_EXPIRES_IN`: JWT 过期时间
+   - `PORT`: 10000
+5. 部署服务
+
+## 环境变量配置
+
+### 前端 (.env 文件)
+```env
+VITE_API_BASE=http://localhost:4001/api
+```
+
+### 后端 (.env 文件)
+```env
+PORT=4001
+MONGO_URI=mongodb://localhost:27017/vue3_fullstack_demo
+JWT_SECRET=change_me
+JWT_EXPIRES_IN=2h
+```
+
+## 项目结构
+
+```
+.
+├── client/              # 前端代码
+│   ├── src/
+│   │   ├── api/         # API 请求封装
+│   │   ├── assets/      # 静态资源
+│   │   ├── components/  # 组件
+│   │   ├── layout/      # 布局组件
+│   │   ├── router/      # 路由配置
+│   │   ├── store/       # 状态管理
+│   │   ├── views/       # 页面视图
+│   │   └── App.vue      # 根组件
+│   ├── index.html       # 入口 HTML
+│   └── vite.config.js   # Vite 配置
+├── server/              # 后端代码
+│   ├── src/
+│   │   ├── middleware/  # 中间件
+│   │   ├── models/      # 数据模型
+│   │   ├── routes/      # 路由
+│   │   └── index.js     # 入口文件
+│   └── .env.example     # 环境变量示例
+├── docker-compose.yml   # Docker 配置
+└── README.md            # 项目说明
+```
+
+## API 接口
+
+### 认证相关
+- `POST /api/auth/register` - 用户注册
+- `POST /api/auth/login` - 用户登录
+
+### 用户相关
+- `GET /api/users/profile` - 获取用户信息
+
+## 注意事项
+
+1. 本地运行时需要确保 MongoDB 服务可用
+2. 生产环境请替换默认的 JWT 密钥
+3. 建议使用 HTTPS 进行生产部署
