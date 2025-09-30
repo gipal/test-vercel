@@ -44,7 +44,7 @@ jobs:
   deploy-front:
     needs: test
     runs-on: ubuntu-latest
-    if: ${{ secrets.VERCEL_TOKEN != '' }}
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
     
     steps:
     - uses: actions/checkout@v3
@@ -60,7 +60,7 @@ jobs:
   deploy-back:
     needs: test
     runs-on: ubuntu-latest
-    if: ${{ secrets.RENDER_API_KEY != '' }}
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
     
     steps:
     - uses: actions/checkout@v3
