@@ -8,6 +8,7 @@
   <el-container style="height:100vh">
     <el-header>
       <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong>自动化</strong>
         <!-- <strong>Vue3 + Element Plus + JWT</strong> -->
         <div>
           <el-button v-if="!isAuthed" type="primary" @click="$router.push('/login')">登录</el-button>
